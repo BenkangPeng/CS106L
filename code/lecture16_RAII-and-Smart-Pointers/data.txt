@@ -1,0 +1,3 @@
+RAII
+CADRE
+ifstream coded with the rules of RAII
