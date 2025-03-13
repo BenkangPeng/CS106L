@@ -4,6 +4,10 @@ C++-ism
 
 All the standard library header files are part of the std namespace.
 
+#### Stream
+
+
+
 #### [Usage notes](https://en.cppreference.com/w/cpp/named_req/SequenceContainer)
 
 |                          Container                           |                             Pros                             |                             Cons                             |
@@ -418,9 +422,59 @@ elections.emplace_back("Joseph Robinette Biden Jr." , "The USA" , 2020);
 3. **Purpose** :
    - Provides a default behavior that derived classes can reuse or customize.
 
+#### Assignment 7
 
+When we operate the raw pointer, it would be better to check whether the raw pointer is `nullptr` or not.
 
+```cpp
+if(data){
+    return *data;
+}
+else{
+    throw std::runtime_error("cann't access the content of nullptr")
+}
 
+if(data){
+    delete data;
+}
+```
+
+For `copy assignment` and `move assignment` in the custom class, it's necessary to check `self-assignment`.
+
+```cpp
+unique_ptr<T>& operator=(unique_ptr<T>&& other){
+
+    if(this == &other)  return *this;
+    delete data;
+    data = other.data;
+    other.data = nullptr;
+    return *this;
+}
+```
+
+It's amazing to create the list in reverse order !!!
+
+```cpp
+template <typename T> cs106l::unique_ptr<ListNode<T>> create_list(const std::vector<T>& values) {
+  /* STUDENT TODO: Implement this method */
+  // throw std::runtime_error("Not implemented: createList");
+
+  cs106l::unique_ptr<ListNode<T>> head = nullptr;
+
+    // Iterate over the vector in reverse order
+    for (auto it = values.rbegin(); it != values.rend(); ++it) {
+        // Create a new node with the current value and the current head as its next pointer
+        cs106l::unique_ptr<ListNode<T>> node = cs106l::make_unique<ListNode<T>>(*it);
+        node->next = std::move(head);
+        head = std::move(node);
+    }
+
+    // Return the head of the list
+    return head;
+}
+```
+
+<big>All in all, `assign-7` is worth doing again. :`)</big>
 
 
 

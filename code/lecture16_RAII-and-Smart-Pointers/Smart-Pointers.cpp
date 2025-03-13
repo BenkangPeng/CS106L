@@ -5,7 +5,7 @@
 #include<memory>
 struct Node{
     int data;
-    Node* next;
+    std::unique_ptr<Node> next;
     Node(int _data): data(_data), next(nullptr){}
 };
 int main(){

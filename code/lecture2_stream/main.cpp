@@ -150,7 +150,7 @@ void badWelcomeProgram() {
     string name, response;
     int age;
 
-    cout << "What is your name? "; // sidenote: no flush needed! why?
+    cout << "What is your name? "; // sidenote: no flush needed! why?: next cin will flush the buffer of cout
     cin >> name;
 
     cout << "What is your age? ";
